@@ -1,49 +1,57 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { AppConfig } from "./AppConfig";
-import { error } from "./utils/error";
-import { sync } from "./model/sync";
-import { User } from "./model/User";
 import { Board } from "./model/Board";
 import { Note } from "./model/Note";
+import { User } from "./model/User";
+import { error } from "./utils/error";
 
-sync()
+Board.sync();
 const server = express();
 server.use(bodyParser.json());
 server.get("/call", async (req, res) => {
   debugger;
 
+  const user = (await User.findOne()) ?? error();
+  const boards = await user.getBoards();
+
+  const note = (await Note.findOne({ where: { id: 10 } })) ?? error();
+  const board = await note.getBoard();
+  const notes = await board.getNotes();
+
+  //   const board = (await Board.findOne({where: {id: 8}})) ?? error();
+  //   const notes = await board.getNotes();
 
   //   const user = await User.create({
   //     username: "test",
   //     password: "test",
   //   });
   //   const users = await User.findAll();
-  const user = (await User.findOne()) ?? error();
+  //   const user = (await User.findOne()) ?? error();
 
-  const board = await Board.create({
-    lastVersion: new Date(),
-    title: "Sprint 3",
-    UUID: "678236862378-123123123-123123",
-  });
-  const boards = await Board.findAll({
-    where: {
-      UUID: "678236862378-123123123-123123",
-    },
-  });
+  //   const board = await Board.create({
+  //     lastVersion: new Date(),
+  //     title: "Sprint 3",
+  //     UUID: "678236862378-123123123-123123",
+  //   });
+  //   const boards = await Board.findAll({
+  //     where: {
+  //       UUID: "678236862378-123123123-123123",
+  //     },
+  //   });
 
-  const note = await Note.create({
-    text: "My first Note",
-    type: 0,
-  });
+  //   const note = await Note.create({
+  //     text: "My first Note",
+  //     type: 0,
+  //   });
 
-  const myBoard = await Board.findOne({
-    where: { UUID: "678236862378-123123123-123123" },
-    include: Note,
-  });
-  await (myBoard as any).addNote(note);
-  const notes = await (myBoard as any).getNotes();
-  const boardUsers = await (user as any).getBoards();
+  //   const myBoard = await Board.findOne({
+  //     where: { UUID: "678236862378-123123123-123123" },
+  //     include: Note,
+  //   });
+  //   await (myBoard as any).addNote(note);
+  //   const notes = await (myBoard as any).getNotes();
+  //   const boardUsers = await (user as any).getBoards();
 
   res.status(200).send("Done");
 });

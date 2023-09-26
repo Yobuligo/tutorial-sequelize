@@ -1,4 +1,5 @@
 import {
+  BelongsToManyGetAssociationsMixin,
   DataTypes,
   HasManyGetAssociationsMixin,
   Model,
@@ -7,18 +8,21 @@ import {
 import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { IUser } from "../shared/IUser";
-import { BoardDefinition } from "./Board";
-import { Vote, VoteDefinition } from "./Vote";
+import { Board } from "./Board";
+import { Vote } from "./Vote";
 
-export const UserDefinition: ModelStatic<Model<IUser, IEntityDetails<IUser>>> =
-  db.define("users", {
+const user: ModelStatic<Model<IUser, IEntityDetails<IUser>>> = db.define(
+  "users",
+  {
     password: DataTypes.STRING,
     username: DataTypes.STRING,
-  });
+  }
+);
 
-UserDefinition.hasMany(VoteDefinition);
-UserDefinition.belongsToMany(BoardDefinition, { through: "usersBoards" });
+Board.belongsToMany(user, { through: "usersBoards" });
+user.belongsToMany(Board, { through: "usersBoards" });
 
-export class User extends UserDefinition {
+export class User extends user {
+  declare getBoards: BelongsToManyGetAssociationsMixin<Board>;
   declare getVotes: HasManyGetAssociationsMixin<Vote>;
 }

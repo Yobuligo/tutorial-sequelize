@@ -2,15 +2,20 @@ import { DataTypes, Model, ModelStatic } from "sequelize";
 import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { IVote } from "../shared/IVote";
-import { NoteDefinition } from "./Note";
-import { UserDefinition } from "./User";
+import { Note } from "./Note";
+import { User } from "./User";
 
-export const VoteDefinition: ModelStatic<Model<IVote, IEntityDetails<IVote>>> =
-  db.define("votes", {
+const vote: ModelStatic<Model<IVote, IEntityDetails<IVote>>> = db.define(
+  "votes",
+  {
     type: DataTypes.INTEGER,
-  });
+  }
+);
 
-VoteDefinition.belongsTo(NoteDefinition);
-VoteDefinition.belongsTo(UserDefinition);
+Note.hasMany(vote);
+vote.belongsTo(Note);
 
-export class Vote extends VoteDefinition {}
+User.hasMany(vote);
+vote.belongsTo(User);
+
+export class Vote extends vote {}

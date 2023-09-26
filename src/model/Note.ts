@@ -1,17 +1,25 @@
-import { DataTypes, Model, ModelStatic } from "sequelize";
+import {
+  DataTypes,
+  HasOneGetAssociationMixin,
+  Model,
+  ModelStatic,
+} from "sequelize";
 import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { INote } from "../shared/INote";
-import { BoardDefinition } from "./Board";
-import { VoteDefinition } from "./Vote";
+import { Board } from "./Board";
 
-export const NoteDefinition: ModelStatic<Model<INote, IEntityDetails<INote>>> =
-  db.define("notes", {
+const note: ModelStatic<Model<INote, IEntityDetails<INote>>> = db.define(
+  "notes",
+  {
     text: DataTypes.STRING,
     type: DataTypes.INTEGER,
-  });
+  }
+);
 
-NoteDefinition.hasMany(VoteDefinition);
-NoteDefinition.belongsTo(BoardDefinition);
+Board.hasMany(note);
+note.belongsTo(Board);
 
-export class Note extends NoteDefinition {}
+export class Note extends note {
+  declare getBoard: HasOneGetAssociationMixin<Board>;
+}

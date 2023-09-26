@@ -9,21 +9,18 @@ import {
 import { db } from "../db/db";
 import { IBoard } from "../shared/IBoard";
 import { IEntityDetails } from "../shared/IEntityDetails";
-import { Note, NoteDefinition } from "./Note";
-import { UserDefinition } from "./User";
+import { Note } from "./Note";
 
-export const BoardDefinition: ModelStatic<
-  Model<IBoard, IEntityDetails<IBoard>>
-> = db.define("boards", {
-  lastVersion: DataTypes.DATE,
-  title: DataTypes.STRING,
-  UUID: DataTypes.STRING,
-});
+const board: ModelStatic<Model<IBoard, IEntityDetails<IBoard>>> = db.define(
+  "boards",
+  {
+    lastVersion: DataTypes.DATE,
+    title: DataTypes.STRING,
+    UUID: DataTypes.STRING,
+  }
+);
 
-BoardDefinition.hasMany(NoteDefinition);
-BoardDefinition.belongsToMany(UserDefinition, { through: "usersBoards" });
-
-export class Board extends BoardDefinition {
+export class Board extends board {
   declare addNote: HasManyAddAssociationMixin<Note, number>;
   declare getNotes: HasManyGetAssociationsMixin<Note>;
   declare removeNote: HasManyRemoveAssociationMixin<Note, number>;
