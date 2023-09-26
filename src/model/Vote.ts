@@ -1,4 +1,10 @@
-import { DataTypes, Model, ModelStatic } from "sequelize";
+import {
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  DataTypes,
+  Model,
+  ModelStatic,
+} from "sequelize";
 import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { IVote } from "../shared/IVote";
@@ -12,10 +18,15 @@ const vote: ModelStatic<Model<IVote, IEntityDetails<IVote>>> = db.define(
   }
 );
 
-Note.hasMany(vote);
-vote.belongsTo(Note);
+export class Vote extends vote {
+  declare getNote: BelongsToGetAssociationMixin<Note>;
+  declare getUser: BelongsToGetAssociationMixin<User>;
+  declare setNote: BelongsToSetAssociationMixin<Note, number>;
+  declare setUser: BelongsToSetAssociationMixin<User, number>;
+}
 
-User.hasMany(vote);
-vote.belongsTo(User);
+Note.hasMany(Vote);
+Vote.belongsTo(Note);
 
-export class Vote extends vote {}
+User.hasMany(Vote);
+Vote.belongsTo(User);

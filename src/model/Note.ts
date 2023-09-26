@@ -1,5 +1,6 @@
 import {
   DataTypes,
+  HasManyGetAssociationsMixin,
   HasOneGetAssociationMixin,
   Model,
   ModelStatic,
@@ -8,6 +9,7 @@ import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { INote } from "../shared/INote";
 import { Board } from "./Board";
+import { Vote } from "./Vote";
 
 const note: ModelStatic<Model<INote, IEntityDetails<INote>>> = db.define(
   "notes",
@@ -17,9 +19,10 @@ const note: ModelStatic<Model<INote, IEntityDetails<INote>>> = db.define(
   }
 );
 
-Board.hasMany(note);
-note.belongsTo(Board);
-
 export class Note extends note {
   declare getBoard: HasOneGetAssociationMixin<Board>;
+  declare getVotes: HasManyGetAssociationsMixin<Vote>;
 }
+
+Board.hasMany(Note);
+Note.belongsTo(Board);

@@ -19,10 +19,10 @@ const user: ModelStatic<Model<IUser, IEntityDetails<IUser>>> = db.define(
   }
 );
 
-Board.belongsToMany(user, { through: "usersBoards" });
-user.belongsToMany(Board, { through: "usersBoards" });
-
 export class User extends user {
   declare getBoards: BelongsToManyGetAssociationsMixin<Board>;
   declare getVotes: HasManyGetAssociationsMixin<Vote>;
 }
+
+Board.belongsToMany(User, { through: "usersBoards" });
+User.belongsToMany(Board, { through: "usersBoards" });

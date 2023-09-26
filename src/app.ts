@@ -4,9 +4,13 @@ import { AppConfig } from "./AppConfig";
 import { Board } from "./model/Board";
 import { Note } from "./model/Note";
 import { User } from "./model/User";
+import { Vote } from "./model/Vote";
 import { error } from "./utils/error";
 
 Board.sync();
+Note.sync();
+User.sync();
+Vote.sync();
 const server = express();
 server.use(bodyParser.json());
 server.get("/call", async (req, res) => {
@@ -17,7 +21,11 @@ server.get("/call", async (req, res) => {
 
   const note = (await Note.findOne({ where: { id: 10 } })) ?? error();
   const board = await note.getBoard();
-  const notes = await board.getNotes();
+  const notes = await board.getNotes({ include: Vote });
+
+  const vote = await Vote.create({ type: 1 });
+  vote.setNote(note);
+  vote.setUser(user);
 
   //   const board = (await Board.findOne({where: {id: 8}})) ?? error();
   //   const notes = await board.getNotes();
