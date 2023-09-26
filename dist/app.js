@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_1 = __importDefault(require("express"));
 const AppConfig_1 = require("./AppConfig");
-const Board_1 = __importDefault(require("./model/Board"));
-const Note_1 = __importDefault(require("./model/Note"));
-const User_1 = __importDefault(require("./model/User"));
 const error_1 = require("./utils/error");
 const sync_1 = require("./model/sync");
+const User_1 = require("./model/User");
+const Board_1 = require("./model/Board");
+const Note_1 = require("./model/Note");
 (0, sync_1.sync)();
 const server = (0, express_1.default)();
 server.use(body_parser_1.default.json());
@@ -31,24 +31,24 @@ server.get("/call", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     //     password: "test",
     //   });
     //   const users = await User.findAll();
-    const user = (_a = (yield User_1.default.findOne())) !== null && _a !== void 0 ? _a : (0, error_1.error)();
-    const board = yield Board_1.default.create({
+    const user = (_a = (yield User_1.User.findOne())) !== null && _a !== void 0 ? _a : (0, error_1.error)();
+    const board = yield Board_1.Board.create({
         lastVersion: new Date(),
         title: "Sprint 3",
         UUID: "678236862378-123123123-123123",
     });
-    const boards = yield Board_1.default.findAll({
+    const boards = yield Board_1.Board.findAll({
         where: {
             UUID: "678236862378-123123123-123123",
         },
     });
-    const note = yield Note_1.default.create({
+    const note = yield Note_1.Note.create({
         text: "My first Note",
         type: 0,
     });
-    const myBoard = yield Board_1.default.findOne({
+    const myBoard = yield Board_1.Board.findOne({
         where: { UUID: "678236862378-123123123-123123" },
-        include: Note_1.default,
+        include: Note_1.Note,
     });
     yield myBoard.addNote(note);
     const notes = yield myBoard.getNotes();

@@ -1,31 +1,24 @@
-import { DataTypes, Model } from "sequelize";
+import {
+  DataTypes,
+  HasManyGetAssociationsMixin,
+  Model,
+  ModelStatic,
+} from "sequelize";
 import { db } from "../db/db";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { IUser } from "../shared/IUser";
-import Board from "./Board";
-import Vote from "./Vote";
+import { BoardDefinition } from "./Board";
+import { Vote, VoteDefinition } from "./Vote";
 
-class User extends Model<IUser, IEntityDetails<IUser>> {}
-
-User.hasMany(Vote);
-User.belongsToMany(Board, { through: "usersBoards" });
-
-User.init(
-  {
-    createdAt: DataTypes.DATE,
-    id: {
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },
+export const UserDefinition: ModelStatic<Model<IUser, IEntityDetails<IUser>>> =
+  db.define("users", {
     password: DataTypes.STRING,
-    updatedAt: DataTypes.DATE,
     username: DataTypes.STRING,
-  },
-  {
-    sequelize: db,
-    tableName: "users",
-  }
-);
+  });
 
-export default User;
+UserDefinition.hasMany(VoteDefinition);
+UserDefinition.belongsToMany(BoardDefinition, { through: "usersBoards" });
+
+export class User extends UserDefinition {
+  declare getVotes: HasManyGetAssociationsMixin<Vote>;
+}

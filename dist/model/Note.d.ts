@@ -1,6 +1,6 @@
-import { Model } from "sequelize";
+import { Model, ModelStatic } from "sequelize";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { INote } from "../shared/INote";
-declare class Note extends Model<INote, IEntityDetails<INote>> {
+export declare const NoteDefinition: ModelStatic<Model<INote, IEntityDetails<INote>>>;
+export declare class Note extends NoteDefinition {
 }
-export default Note;

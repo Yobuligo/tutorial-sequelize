@@ -1,12 +1,11 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { AppConfig } from "./AppConfig";
-
-import Board from "./model/Board";
-import Note from "./model/Note";
-import User from "./model/User";
 import { error } from "./utils/error";
 import { sync } from "./model/sync";
+import { User } from "./model/User";
+import { Board } from "./model/Board";
+import { Note } from "./model/Note";
 
 sync()
 const server = express();

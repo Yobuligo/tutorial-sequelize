@@ -1,33 +1,21 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Board = exports.BoardDefinition = void 0;
 const sequelize_1 = require("sequelize");
 const db_1 = require("../db/db");
-const Note_1 = __importDefault(require("./Note"));
-const User_1 = __importDefault(require("./User"));
-class Board extends sequelize_1.Model {
+const Note_1 = require("./Note");
+const User_1 = require("./User");
+exports.BoardDefinition = db_1.db.define("boards", {
+    lastVersion: sequelize_1.DataTypes.DATE,
+    title: sequelize_1.DataTypes.STRING,
+    UUID: sequelize_1.DataTypes.STRING,
+});
+exports.BoardDefinition.hasMany(Note_1.NoteDefinition);
+exports.BoardDefinition.belongsToMany(User_1.UserDefinition, { through: "usersBoards" });
+class Board extends exports.BoardDefinition {
     updateLastVersion() {
         this.update({ lastVersion: new Date() }, { where: { id: this.dataValues.id } });
     }
 }
-Board.hasMany(Note_1.default);
-Board.belongsToMany(User_1.default, { through: "usersBoards" });
-Board.init({
-    createdAt: sequelize_1.DataTypes.DATE,
-    id: {
-        autoIncrement: true,
-        primaryKey: true,
-        type: sequelize_1.DataTypes.INTEGER,
-    },
-    lastVersion: sequelize_1.DataTypes.DATE,
-    title: sequelize_1.DataTypes.STRING,
-    UUID: sequelize_1.DataTypes.STRING,
-    updatedAt: sequelize_1.DataTypes.DATE,
-}, {
-    sequelize: db_1.db,
-    tableName: "boards",
-});
-exports.default = Board;
+exports.Board = Board;
 //# sourceMappingURL=Board.js.map

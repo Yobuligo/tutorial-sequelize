@@ -1,25 +1,16 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Vote = exports.VoteDefinition = void 0;
 const sequelize_1 = require("sequelize");
 const db_1 = require("../db/db");
-const Note_1 = __importDefault(require("./Note"));
-const User_1 = __importDefault(require("./User"));
-class Vote extends sequelize_1.Model {
-}
-Vote.belongsTo(Note_1.default);
-Vote.belongsTo(User_1.default);
-Vote.init({
-    createdAt: sequelize_1.DataTypes.DATE,
-    id: {
-        autoIncrement: true,
-        primaryKey: true,
-        type: sequelize_1.DataTypes.INTEGER,
-    },
+const Note_1 = require("./Note");
+const User_1 = require("./User");
+exports.VoteDefinition = db_1.db.define("votes", {
     type: sequelize_1.DataTypes.INTEGER,
-    updatedAt: sequelize_1.DataTypes.DATE,
-}, { sequelize: db_1.db, tableName: "votes" });
-exports.default = Vote;
+});
+exports.VoteDefinition.belongsTo(Note_1.NoteDefinition);
+exports.VoteDefinition.belongsTo(User_1.UserDefinition);
+class Vote extends exports.VoteDefinition {
+}
+exports.Vote = Vote;
 //# sourceMappingURL=Vote.js.map

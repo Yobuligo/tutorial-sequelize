@@ -1,6 +1,8 @@
-import { Model } from "sequelize";
+import { HasManyGetAssociationsMixin, Model, ModelStatic } from "sequelize";
 import { IEntityDetails } from "../shared/IEntityDetails";
 import { IUser } from "../shared/IUser";
-declare class User extends Model<IUser, IEntityDetails<IUser>> {
+import { Vote } from "./Vote";
+export declare const UserDefinition: ModelStatic<Model<IUser, IEntityDetails<IUser>>>;
+export declare class User extends UserDefinition {
+    getVotes: HasManyGetAssociationsMixin<Vote>;
 }
-export default User;

@@ -8,21 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sync = void 0;
-const Board_1 = __importDefault(require("./Board"));
-const Note_1 = __importDefault(require("./Note"));
-const User_1 = __importDefault(require("./User"));
-const Vote_1 = __importDefault(require("./Vote"));
+const Board_1 = require("./Board");
+const Note_1 = require("./Note");
+const User_1 = require("./User");
+const Vote_1 = require("./Vote");
 const sync = () => __awaiter(void 0, void 0, void 0, function* () {
     const force = false;
-    yield Board_1.default.sync({ force });
-    yield Note_1.default.sync({ force });
-    yield User_1.default.sync({ force });
-    yield Vote_1.default.sync({ force });
+    yield Board_1.Board.sync({ force });
+    yield Note_1.Note.sync({ force });
+    yield User_1.User.sync({ force });
+    yield Vote_1.Vote.sync({ force });
 });
 exports.sync = sync;
 //# sourceMappingURL=sync.js.map
