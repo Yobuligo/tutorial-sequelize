@@ -13,53 +13,38 @@ User.sync();
 Vote.sync();
 const server = express();
 server.use(bodyParser.json());
-server.get("/call", async (req, res) => {
+server.get("/call", async (_, res) => {
   debugger;
 
+  // find the first user
   const user = (await User.findOne()) ?? error();
+
+  // get all boards from the user. As User and Board have a m to n relation, the boards can be get from a user
   const boards = await user.getBoards();
 
+  // find a Note by its id
   const note = (await Note.findOne({ where: { id: 10 } })) ?? error();
+
+  // get all boards of that note. As Board and Note have a 1 to n relation, the boards can be get from the note
   const board = await note.getBoard();
+
+  // get all notes from the board as they still have a 1 to n relation.
+  // In addition it is possible to eager load all Votes of the notes with one select by including the relations which should be loaded additionally.
   const notes = await board.getNotes({ include: Vote });
 
+  // create a new Vote and set its related objects Note and User
   const vote = await Vote.create({ type: 1 });
   vote.setNote(note);
   vote.setUser(user);
 
-  //   const board = (await Board.findOne({where: {id: 8}})) ?? error();
-  //   const notes = await board.getNotes();
-
-  //   const user = await User.create({
-  //     username: "test",
-  //     password: "test",
-  //   });
-  //   const users = await User.findAll();
-  //   const user = (await User.findOne()) ?? error();
-
-  //   const board = await Board.create({
-  //     lastVersion: new Date(),
-  //     title: "Sprint 3",
-  //     UUID: "678236862378-123123123-123123",
-  //   });
-  //   const boards = await Board.findAll({
-  //     where: {
-  //       UUID: "678236862378-123123123-123123",
-  //     },
-  //   });
-
-  //   const note = await Note.create({
-  //     text: "My first Note",
-  //     type: 0,
-  //   });
-
-  //   const myBoard = await Board.findOne({
-  //     where: { UUID: "678236862378-123123123-123123" },
-  //     include: Note,
-  //   });
-  //   await (myBoard as any).addNote(note);
-  //   const notes = await (myBoard as any).getNotes();
-  //   const boardUsers = await (user as any).getBoards();
+  // selecting a note and the corresponding board (eager loading)
+  // Therefore Note has to have a property board?: NonAttribute<Board>
+  // The advantage is, that the note and its referred Board can be loaded with one select
+  const updateNote = await Note.findOne({
+    include: Board,
+    where: { id: 10 },
+  });
+  updateNote?.board;
 
   res.status(200).send("Done");
 });

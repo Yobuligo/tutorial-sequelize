@@ -24,5 +24,8 @@ export class User extends user {
   declare getVotes: HasManyGetAssociationsMixin<Vote>;
 }
 
+// A m to n relation
+//    A board can belong to many users
+//    A user can belong to many boards
 Board.belongsToMany(User, { through: "usersBoards" });
 User.belongsToMany(Board, { through: "usersBoards" });
