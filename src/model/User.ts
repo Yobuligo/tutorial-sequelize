@@ -1,4 +1,5 @@
 import {
+  BelongsToManyAddAssociationMixin,
   BelongsToManyGetAssociationsMixin,
   DataTypes,
   HasManyGetAssociationsMixin,
@@ -20,6 +21,7 @@ const user: ModelStatic<Model<IUser, IEntityDetails<IUser>>> = db.define(
 );
 
 export class User extends user {
+  declare addBoard: BelongsToManyAddAssociationMixin<Board, number>
   declare getBoards: BelongsToManyGetAssociationsMixin<Board>;
   declare getVotes: HasManyGetAssociationsMixin<Vote>;
 }
