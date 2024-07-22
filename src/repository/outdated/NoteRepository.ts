@@ -1,7 +1,7 @@
-import { Board } from "../model/Board";
-import { Note } from "../model/Note";
-import { IBoard } from "../shared/IBoard";
-import { INote } from "../shared/INote";
+import { Board } from "../../model/outdated/Board";
+import { Note } from "../../model/outdated/Note";
+import { IBoard } from "../../shared/outdated/IBoard";
+import { INote } from "../../shared/outdated/INote";
 import { ChildRepository } from "./core/ChildRepository";
 
 class NoteRepositoryDefault extends ChildRepository<INote, IBoard> {

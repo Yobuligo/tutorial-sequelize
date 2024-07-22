@@ -5,9 +5,9 @@ import {
   Model,
   ModelStatic,
 } from "sequelize";
-import { db } from "../db/db";
-import { IEntityDetails } from "../shared/IEntityDetails";
-import { IVote } from "../shared/IVote";
+import { db } from "../../db/db";
+import { IEntityDetails } from "../../shared/core/IEntityDetails";
+import { IVote } from "../../shared/outdated/IVote";
 import { Note } from "./Note";
 import { User } from "./User";
 

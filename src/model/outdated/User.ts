@@ -6,9 +6,9 @@ import {
   Model,
   ModelStatic,
 } from "sequelize";
-import { db } from "../db/db";
-import { IEntityDetails } from "../shared/IEntityDetails";
-import { IUser } from "../shared/IUser";
+import { db } from "../../db/db";
+import { IEntityDetails } from "../../shared/core/IEntityDetails";
+import { IUser } from "../../shared/outdated/IUser";
 import { Board } from "./Board";
 import { Vote } from "./Vote";
 

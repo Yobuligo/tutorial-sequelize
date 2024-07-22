@@ -1,10 +1,10 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { AppConfig } from "./AppConfig";
-import { Board } from "./model/Board";
-import { Note } from "./model/Note";
-import { User } from "./model/User";
-import { Vote } from "./model/Vote";
+import { Board } from "./model/outdated/Board";
+import { Note } from "./model/outdated/Note";
+import { User } from "./model/outdated/User";
+import { Vote } from "./model/outdated/Vote";
 import { error } from "./utils/error";
 
 Board.sync();

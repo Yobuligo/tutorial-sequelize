@@ -6,9 +6,9 @@ import {
   Model,
   ModelStatic,
 } from "sequelize";
-import { db } from "../db/db";
-import { IBoard } from "../shared/IBoard";
-import { IEntityDetails } from "../shared/IEntityDetails";
+import { db } from "../../db/db";
+import { IBoard } from "../../shared/outdated/IBoard";
+import { IEntityDetails } from "../../shared/core/IEntityDetails";
 import { Note } from "./Note";
 
 // Define the model and provide the name of the table

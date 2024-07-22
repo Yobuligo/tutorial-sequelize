@@ -1,5 +1,5 @@
-import { Board } from "../model/Board";
-import { IBoard } from "../shared/IBoard";
+import { Board } from "../../model/outdated/Board";
+import { IBoard } from "../../shared/outdated/IBoard";
 import { ParentRepository } from "./core/ParentRepository";
 
 class BoardRepositoryDefault extends ParentRepository<IBoard> {

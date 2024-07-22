@@ -1,7 +1,7 @@
 import { Model, WhereOptions } from "sequelize";
-import { IEntity } from "../../shared/IEntity";
-import { IEntityDetails } from "../../shared/IEntityDetails";
-import { error } from "../../utils/error";
+import { IEntity } from "../../../shared/core/IEntity";
+import { IEntityDetails } from "../../../shared/core/IEntityDetails";
+import { error } from "../../../utils/error";
 import { IChildRepository } from "../types/IChildRepository";
 import { IFilterConfig } from "../types/IFilterConfig";
 import { ISequelizeModel } from "../types/ISequelizeModel";

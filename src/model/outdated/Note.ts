@@ -6,9 +6,9 @@ import {
   ModelStatic,
   NonAttribute,
 } from "sequelize";
-import { db } from "../db/db";
-import { IEntityDetails } from "../shared/IEntityDetails";
-import { INote } from "../shared/INote";
+import { db } from "../../db/db";
+import { IEntityDetails } from "../../shared/core/IEntityDetails";
+import { INote } from "../../shared/outdated/INote";
 import { Board } from "./Board";
 import { Vote } from "./Vote";
 

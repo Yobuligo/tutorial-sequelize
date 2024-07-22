@@ -1,5 +1,5 @@
-import { IEntity } from "../../shared/IEntity";
-import { IEntityDetails } from "../../shared/IEntityDetails";
+import { IEntity } from "../../../shared/core/IEntity";
+import { IEntityDetails } from "../../../shared/core/IEntityDetails";
 import { IFilterConfig } from "./IFilterConfig";
 
 /**

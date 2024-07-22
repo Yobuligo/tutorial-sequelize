@@ -1,4 +1,4 @@
-import { IEntity } from "./IEntity";
+import { IEntity } from "../core/IEntity";
 
 export interface IUser extends IEntity {
   username: string;

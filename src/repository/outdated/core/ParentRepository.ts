@@ -1,6 +1,6 @@
 import { WhereOptions } from "sequelize";
-import { IEntity } from "../../shared/IEntity";
-import { IEntityDetails } from "../../shared/IEntityDetails";
+import { IEntity } from "../../../shared/core/IEntity";
+import { IEntityDetails } from "../../../shared/core/IEntityDetails";
 import { IFilterConfig } from "../types/IFilterConfig";
 import { IParentRepository } from "../types/IParentRepository";
 import { Repository } from "./Repository";

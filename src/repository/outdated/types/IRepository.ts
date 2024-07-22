@@ -1,4 +1,4 @@
-import { IEntity } from "../../shared/IEntity";
+import { IEntity } from "../../../shared/core/IEntity";
 
 /**
  * An implementation of this interface represents the repository.

@@ -1,5 +1,5 @@
 import { WhereOptions } from "sequelize";
-import { IEntity } from "../../shared/IEntity";
+import { IEntity } from "../../../shared/core/IEntity";
 import { IRepository } from "../types/IRepository";
 import { ISequelizeModel } from "../types/ISequelizeModel";
 
