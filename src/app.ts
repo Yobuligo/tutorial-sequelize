@@ -11,14 +11,16 @@ async function test() {
     classes: "A, B, C",
   } as any);
 
-  const certificate = await Certificate.create({ title: "Sequelize" } as any);
-
   const person = await Person.create({
     firstname: "Stacey",
     lastname: "Starfish",
   } as any);
 
   person.setDriverLicense(driverLicense); // needs to be mapped to "driveLicense", as Sequelize creates a singular of the "driver" name, probably because of the 1 to 1 relation
+
+  let certificate = await Certificate.create({ title: "Sequelize" } as any);
+  person.addCertificate(certificate);
+  certificate = await Certificate.create({ title: "Stoic" } as any);
   person.addCertificate(certificate);
 }
 
