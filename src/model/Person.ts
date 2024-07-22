@@ -1,5 +1,6 @@
 import {
   DataTypes,
+  HasManyAddAssociationMixin,
   HasOneSetAssociationMixin,
   Model,
   ModelStatic,
@@ -8,6 +9,7 @@ import { db } from "../db/db";
 import { IPerson } from "../shared/IPerson";
 import { IEntityDetails } from "../shared/core/IEntityDetails";
 import { DriverLicense } from "./DriverLicense";
+import { Certificate } from "./Certificate";
 
 const person: ModelStatic<Model<IPerson, IEntityDetails<IPerson>>> = db.define(
   "persons",
@@ -15,5 +17,6 @@ const person: ModelStatic<Model<IPerson, IEntityDetails<IPerson>>> = db.define(
 );
 
 export class Person extends person {
-  declare setDriveLicense: HasOneSetAssociationMixin<DriverLicense, number>;
+  declare setDriverLicense: HasOneSetAssociationMixin<DriverLicense, number>;
+  declare addCertificate: HasManyAddAssociationMixin<Certificate, number>;
 }

@@ -10,5 +10,6 @@ const driverLicense: ModelStatic<
 
 export class DriverLicense extends driverLicense {}
 
-Person.hasOne(DriverLicense, { foreignKey: "personId", as: "driveLicense" }); // needs to be mapped to different foreign-key -> otherwise I get an error personId is a duplicate key
+// seems to be best practice to provide the relation to the "weaker" model
+Person.hasOne(DriverLicense, { foreignKey: "personId", as: "driverLicense" }); // needs to be mapped to different foreign-key in one to one relation -> otherwise I get an error personId is a duplicate key
 DriverLicense.belongsTo(Person);
