@@ -30,4 +30,13 @@ async function test() {
   person.addCar(car);
 }
 
-test();
+async function load() {
+  const data = await Person.findByPk(2, {
+    include: [{ model: DriverLicense, as: "driverLicense" }, Certificate, Car], // as the foreign key for the relation between Person and DriverLicense has a separate alias, we have to provide the alias here
+  });
+  const person = data?.toJSON();
+  console.log(person?.id);
+}
+
+// test();
+load();
