@@ -1,9 +1,12 @@
+import { Car, PersonCar } from "./model/Car";
 import { Certificate } from "./model/Certificate";
 import { DriverLicense } from "./model/DriverLicense";
 import { Person } from "./model/Person";
 
 async function test() {
+  await Car.sync({ alter: true });
   await Person.sync({ alter: true });
+  await PersonCar.sync({ alter: true });
   await DriverLicense.sync({ alter: true });
   await Certificate.sync({ alter: true });
 
@@ -22,6 +25,9 @@ async function test() {
   person.addCertificate(certificate);
   certificate = await Certificate.create({ title: "Stoic" } as any);
   person.addCertificate(certificate);
+
+  const car = await Car.create({ brand: "BWM" } as any);
+  person.addCar(car);
 }
 
 test();
